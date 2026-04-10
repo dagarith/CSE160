@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Painting</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #canvasContainer {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+      canvas {
+        border: 1px solid black;
+      }
+      .controls {
+        margin: 10px 0;
+        width: 400px;
+      }
+      .shapeMenu {
+        display: none;
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid #aaaaaa;
+        background: #ffffff;
+      }
+      #triangleMenu {
+        display: block;
+      }
+      .vertexSlider {
+        display: none;
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid #aaaaaa;
+        background: #ffffff;
+      }
+      #vertex1 {
+        display: block;
+      }
+      .slider-group {
+        margin: 5px 0;
+      }
+      label {
+        display: inline-block;
+        width: 140px;
+      }
+      button {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="canvasContainer" style="position: relative; width: 400px; height: 400px;">
+      <canvas id="canvas" width="400" height="400" style="position: absolute; left: 0; top: 0; z-index: 0; border: 1px solid black;"></canvas>
+    </div>
+
+    <h3>Canvas Controls</h3>
+    <div id="canvasControls" class="controls">
+      <button id="clearButton">Clear Canvas</button>
+      <button id="resetSlidersButton">Reset Sliders</button>
+      <input type="checkbox" id="togglePreview">Toggle Preview (Disables drag to draw)</input>
+
+      <h4>Canvas Background Color (On clear)</h4>
+      <div class="slider-group">
+        <label for="canvasRed">Red</label>
+        <input type="range" min="0" max="255" step="1" value="0" id="canvasRed">
+      </div>
+      <div class="slider-group">
+        <label for="canvasGreen">Green</label>
+        <input type="range" min="0" max="255" step="1" value="0" id="canvasGreen">
+      </div>
+      <div class="slider-group">
+        <label for="canvasBlue">Blue</label>
+        <input type="range" min="0" max="255" step="1" value="0" id="canvasBlue">
+      </div>
+    </div>
+
+    <h3>Shape Selection</h3>
+    <div id="shapeButtons" class="controls">
+      <button id="triangleButton">Triangle</button>
+      <button id="rectangleButton">Rectangle</button>
+      <button id="circleButton">Circle</button>
+    </div>
+
+    <h3>Shape Controls</h3>
+    <div id="shapeSliders" class="controls">
+      <div class="slider-group">
+        <label for="shapeRed">Red</label>
+        <input type="range" min="0" max="255" step="1" value="255" id="shapeRed">
+      </div>
+      <div class="slider-group">
+        <label for="shapeGreen">Green</label>
+        <input type="range" min="0" max="255" step="1" value="255" id="shapeGreen">
+      </div>
+      <div class="slider-group">
+        <label for="shapeBlue">Blue</label>
+        <input type="range" min="0" max="255" step="1" value="255" id="shapeBlue">
+      </div>
+      <div class="slider-group">
+        <label for="shapeSize">Size</label>
+        <input type="range" min="0" max="5" step="0.1" value="1" id="shapeSize">
+      </div>
+      <div class="slider-group">
+        <label for="shapeRotation">Rotation</label>
+        <input type="range" min="0" max="6.28" step="0.0628" value="0" id="shapeRotation">
+      </div>
+      <div class="slider-group">
+        <label for="shapeAlpha">Transparency</label>
+        <input type="range" min="0" max="1" step="0.01" value="1" id="shapeAlpha">
+      </div>
+    </div>
+
+    <div id="triangleMenu" class="shapeMenu controls">
+      <h4>Triangle Vertex Controls</h4>
+
+      <div class="slider-group">
+        <button id="vertex1Button">Vertex 1</button>
+        <button id="vertex2Button">Vertex 2</button>
+        <button id="vertex3Button">Vertex 3</button>
+      </div>
+
+      <div id="vertex1" class="slider-group vertexSlider">
+        <label for="triVertX1">X coord (x1)</label>
+        <input type="range" min="-200" max="200" step="1" value="0" id="triVertX1">
+        <label for="triVertY1">Y coord (y1)</label>
+        <input type="range" min="-200" max="200" step="1" value="40" id="triVertY1">
+      </div>
+
+      <div id="vertex2" class="slider-group vertexSlider" style="display:none;">
+        <label for="triVertX2">X coord (x2)</label>
+        <input type="range" min="-200" max="200" step="1" value="34.64" id="triVertX2">
+        <label for="triVertY2">Y coord (y2)</label>
+        <input type="range" min="-200" max="200" step="1" value="-20" id="triVertY2">
+      </div>
+
+      <div id="vertex3" class="slider-group vertexSlider" style="display:none;">
+        <label for="triVertX3">X coord (x3)</label>
+        <input type="range" min="-200" max="200" step="1" value="-34.64" id="triVertX3">
+        <label for="triVertY3">Y coord (y3)</label>
+        <input type="range" min="-200" max="200" step="1" value="-20" id="triVertY3">
+      </div>
+    </div>
+
+    <div id="rectangleMenu" class="shapeMenu controls">
+      <h4>Rectangle Controls</h4>
+      <div class="slider-group">
+        <label for="rectWidth">Width</label>
+        <input type="range" min="0" max="400" step="1" value="40" id="rectWidth">
+      </div>
+      <div class="slider-group">
+        <label for="rectHeight">Height</label>
+        <input type="range" min="0" max="400" step="1" value="40" id="rectHeight">
+      </div>
+    </div>
+
+    <div id="circleMenu" class="shapeMenu controls">
+      <h4>Circle Controls</h4>
+      <div class="slider-group">
+        <label for="circleSegments">Segments</label>
+        <input type="range" min="3" max="40" step="1" value="40" id="circleSegments">
+      </div>
+    </div>
+
+    <script src="./lib/webgl-utils.js"></script>
+    <script src="./lib/webgl-debug.js"></script>
+    <script src="./lib/cuon-utils.js"></script>
+    <script type="module" src="./Painting.js"></script>
+  </body>
+</html>
