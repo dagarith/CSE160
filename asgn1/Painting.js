@@ -76,6 +76,31 @@ export function main() {
       slider.value = slider.defaultValue;
     });
   })
+  document.getElementById("renderDrawingButton").addEventListener('click', () => {
+    fetch("./drawing.json")
+        .then(res => res.json())
+        .then(data => {
+          state.shapes.push(...data.shapes);
+        })
+        .catch(err => console.error(err));
+  })
+  document.getElementById("saveDrawingButton").addEventListener('click', () => {
+    const data = {
+      shapes: state.shapes
+    };
+
+    const json = JSON.stringify(data, null, 2);
+
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "drawingtest.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  })
   document.getElementById("togglePreview").addEventListener('change', (e) => {state.previewOn = e.target.checked;})
 
   // Shape buttons/listener

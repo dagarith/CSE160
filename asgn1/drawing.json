@@ -1,0 +1,743 @@
+{
+  "shapes": [
+    {
+      "type": "rectangle",
+      "x": 0,
+      "y": 0,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "triVertices": null,
+      "rectParams": {
+        "rectWidth": 400,
+        "rectHeight": 400
+      },
+      "circleSegments": null
+    },
+    {
+      "type": "rectangle",
+      "x": -0.25,
+      "y": 0.5,
+      "size": 1,
+      "rotation": 0.523,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": null,
+      "rectParams": {
+        "rectWidth": 6,
+        "rectHeight": 200
+      },
+      "circleSegments": null
+    },
+    {
+      "type": "rectangle",
+      "x": 0.25,
+      "y": 0.5,
+      "size": 1,
+      "rotation": -0.523,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": null,
+      "rectParams": {
+        "rectWidth": 6,
+        "rectHeight": 200
+      },
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.459,
+      "y": 0.833,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.459,
+      "y": 0.833,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.41,
+      "y": 0.75,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.41,
+      "y": 0.75,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.36,
+      "y": 0.67,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.36,
+      "y": 0.67,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.315,
+      "y": 0.585,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.315,
+      "y": 0.585,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.267,
+      "y": 0.5,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.267,
+      "y": 0.5,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.217,
+      "y": 0.415,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.217,
+      "y": 0.415,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.167,
+      "y": 0.33,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.167,
+      "y": 0.33,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.12,
+      "y": 0.245,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.12,
+      "y": 0.245,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.07,
+      "y": 0.16,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.07,
+      "y": 0.16,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.02,
+      "y": 0.075,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        -20,
+        34.64,
+        -22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.02,
+      "y": 0.075,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0.3,
+        0.3,
+        0.3,
+        1
+      ],
+      "triVertices": [
+        0,
+        0,
+        20,
+        34.64,
+        22.99,
+        9.82
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "rectangle",
+      "x": -0.0025,
+      "y": 0.05,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": null,
+      "rectParams": {
+        "rectWidth": 3,
+        "rectHeight": 14
+      },
+      "circleSegments": null
+    },
+    {
+      "type": "rectangle",
+      "x": -0.0025,
+      "y": 0.015,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": null,
+      "rectParams": {
+        "rectWidth": 14,
+        "rectHeight": 14
+      },
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.2025,
+      "y": 0.03,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        6,
+        69,
+        -20,
+        -35,
+        -20
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.3875,
+      "y": 0.03,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        -3,
+        -143,
+        69,
+        -20,
+        40,
+        -20
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.2075,
+      "y": 0.03,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        -3,
+        -54,
+        69,
+        -20,
+        40,
+        -20
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": -0.2425,
+      "y": -0.155,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        40,
+        74,
+        -71,
+        -14,
+        14
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.0125,
+      "y": -0.085,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        40,
+        60,
+        -50,
+        60,
+        -95
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.313,
+      "y": -0.085,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        40,
+        -60,
+        -50,
+        -60,
+        -95
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.3,
+      "y": -0.085,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        40,
+        60,
+        -50,
+        60,
+        -95
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    },
+    {
+      "type": "triangle",
+      "x": 0.6,
+      "y": -0.085,
+      "size": 1,
+      "rotation": 0,
+      "color": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "triVertices": [
+        0,
+        40,
+        -60,
+        -50,
+        -60,
+        -95
+      ],
+      "rectParams": null,
+      "circleSegments": null
+    }
+  ]
+}
