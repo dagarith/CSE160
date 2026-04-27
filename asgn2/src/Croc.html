@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-family: "Comic Sans MS",sans-serif;
+            font-size: 20px;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            font-family: "Comic Sans MS",sans-serif;
+            font-size: 14px;
+            pointer-events: auto;
+            color: white;
+            background: transparent;
+        }
+
+        #controls input {
+            width: 150px;
+            vertical-align: middle;
+        }
+
+        #fps-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-family: monospace;
+            background: transparent;
+            padding: 5px 10px;
+        }
+
+        #tooltips {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            font-family: "Comic Sans MS",sans-serif;
+            font-size: 20px;
+            background: transparent;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div id="canvasContainer">
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <div id="hud">command: none</div>
+    <div id="fps-counter">FPS: <span id="fps">--</span></div>
+    <div id="tooltips"></div>
+    <div id="controls">
+        <div><button id="resetBtn">Reset All Sliders</button></div>
+        <div><label for="globalRot"> Global Rotation: </label><input type="range" id="globalRot" min="0" max="360" value="0"></div>
+        <div><label for="bodyFrontYaw">Body Yaw (Front): </label><input type="range" id="bodyFrontYaw" min="-13" max="13" value="0"></div>
+        <div><label for="bodyBackYaw">Body Yaw (Back): </label><input type="range" id="bodyBackYaw" min="-13" max="13" value="0"></div>
+        <div><label for="headPitch">Head Pitch: </label><input type="range" id="headPitch" min="-10" max="6" value="0"></div>
+        <div><label for="headYaw">Head Yaw: </label><input type="range" id="headYaw" min="-15" max="15" value="0"></div>
+        <div><label for="neckPitch">Neck Pitch: </label><input type="range" id="neckPitch" min="-10" max="10" value="0"></div>
+        <div><label for="neckYaw">Neck Yaw: </label><input type="range" id="neckYaw" min="-15" max="15" value="0"></div>
+        <div><label for="neckRot">Neck Rot: </label><input type="range" id="neckRot" min="-15" max="15" value="0"></div>
+        <div><label for="snoutPitch">Snout Pitch: </label><input type="range" id="snoutPitch" min="-20" max="15" value="0"></div>
+        <div><label for="jawPitch">Jaw Pitch: </label><input type="range" id="jawPitch" min="-20" max="15" value="0"></div>
+        <div><label for="tail1Yaw">Tail Yaw (Front): </label><input type="range" id="tail1Yaw" min="-10" max="10" value="0"></div>
+        <div><label for="tail2Yaw">Tail Yaw (Back): </label><input type="range" id="tail2Yaw" min="-15" max="15" value="0"></div>
+        <div><label for="legBackLeftPitch">Leg Pitch (Back Left): </label><input type="range" id="legBackLeftPitch" min="-45" max="45" value="0"></div>
+        <div><label for="legBackRightPitch">Leg Pitch (Back Right): </label><input type="range" id="legBackRightPitch" min="-45" max="45" value="0"></div>
+        <div><label for="legFrontLeftPitch">Leg Pitch (Front Left): </label><input type="range" id="legFrontLeftPitch" min="-45" max="45" value="0"></div>
+        <div><label for="legFrontRightPitch">Leg Pitch (Front Right): </label><input type="range" id="legFrontRightPitch" min="-45" max="45" value="0"></div>
+    </div>
+</div>
+
+<script src="../lib/cuon-matrix-cse160.js"></script>
+<script src="../lib/cuon-utils.js"></script>
+<script src="../lib/webgl-utils.js"></script>
+<script src="../lib/webgl-debug.js"></script>
+<script src="./Cube.js"></script>
+<script src="./Node.js"></script>
+<script src="./Camera.js"></script>
+<script src="./Croc.js"></script>
+</body>
+</html>
