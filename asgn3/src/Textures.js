@@ -19,8 +19,9 @@ const TextureManager = {
                 image
             );
 
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            // Nearest cause they're pixel art textures
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
@@ -29,6 +30,13 @@ const TextureManager = {
         };
 
         image.src = src;
+    },
+
+    texturesReady() {
+        for (let i = 0; i < this.textures.length; i++) {
+            if (this.textures[i] === null) return false;
+        }
+        return true;
     },
 
     get(name) {

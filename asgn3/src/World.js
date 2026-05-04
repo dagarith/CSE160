@@ -1,6 +1,5 @@
 let VSHADER_SOURCE = `
 attribute vec3 a_Position;
-attribute vec3 a_Normal;
 attribute vec2 a_TexCoord;
 
 uniform mat4 u_ModelMatrix;
@@ -11,8 +10,6 @@ varying vec2 v_TexCoord;
 
 void main() {
     vec4 worldPos = u_ModelMatrix * vec4(a_Position, 1.0);
-    
-    vec3 normal = normalize(mat3(u_ModelMatrix) * a_Normal);
     
     v_TexCoord = a_TexCoord;
 
@@ -52,7 +49,7 @@ const g_worldMatrix = [
     [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,4,0,0,0,0,0,4],
     [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,0,0,0,0,4],
     [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,0,0,4,0,0,4,0,0,4],
-    [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,0,0,4,0,0,4,0,0,4],
+    [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0,4,4,4,4,0,0,4,0,0,4,0,0,4],
     [4,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4],
     [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4],
     [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,4],
@@ -85,38 +82,57 @@ const g_worldMatrix = [
 function main() {
     const {canvas, gl} = initWebGL("canvas");
 
+    const vaoExt = gl.getExtension("OES_vertex_array_object");
+    if (!vaoExt) throw new Error("VAOs not supported");
+
     gl.clearColor(0.5, 0.5, 0.7, 1);
     gl.enable(gl.DEPTH_TEST);
 
-    const cubeMesh = createCubeMesh(gl);
-
+    // Get attribs/unis
     const attribs = getAttributes(gl);
     const unis = getUniforms(gl);
 
-    setupAttributes(gl, cubeMesh.buffer, attribs);
+    // Create one cube mesh with its own buffer
+    const cubeMesh = createCubeMesh(gl, attribs, vaoExt);
 
+    // Do not blend textures/base colors
     gl.uniform1f(unis.u_T, 1.0);
 
+    // Init camera object
     const camera = new Camera(gl, canvas, unis.u_ViewMatrix, unis.u_ProjectionMatrix);
 
     const entities = [];
 
-    TextureManager.load(gl, "stone", "../resources/stone.png");
-    TextureManager.load(gl, "grass", "../resources/grass.png");
-    TextureManager.load(gl, "cobble", "../resources/cobble.png");
-    TextureManager.load(gl, "signWelcome", "../resources/signWelcome.png");
-    TextureManager.load(gl, "signWrongTurn1", "../resources/signWrongTurn1.png");
-    TextureManager.load(gl, "signWrongTurn2", "../resources/signWrongTurn2.png");
-    TextureManager.load(gl, "signBye", "../resources/signBye.png");
+    const textureNames = [
+        "stone",
+        "grass",
+        "cobble",
+        "signWelcome",
+        "signWrongTurn1",
+        "signWrongTurn2",
+        "signBye"
+    ];
 
-    createWorldObjects(entities, cubeMesh);
+    for (const name of textureNames) {
+        TextureManager.load(gl, name, `../resources/${name}.png`);
+    }
+
+    const specialBlocks = new Map([
+        ["16,31,2", "signWelcome"],
+        ["30,31,2", "signWrongTurn1"],
+        ["12,0,2", "signWrongTurn2"],
+        ["0,7,2", "signBye"]
+    ]);
+
+    createWorldObjects(entities, cubeMesh, specialBlocks);
 
     const ctx = {
         gl,
         attribs,
         unis,
         camera,
-        entities
+        entities,
+        vaoExt
     };
 
     startRenderLoop(ctx);
@@ -124,9 +140,9 @@ function main() {
 
 function startRenderLoop(ctx) {
     function render() {
-        const {gl, attribs, unis, camera, entities} = ctx;
+        const {gl, unis, camera, entities, vaoExt} = ctx;
 
-        if (!texturesReady()) {
+        if (!TextureManager.texturesReady()) {
             requestAnimationFrame(render);
             return;
         }
@@ -141,7 +157,8 @@ function startRenderLoop(ctx) {
                 unis.u_ModelMatrix,
                 unis.u_Color,
                 unis.u_Sampler,
-                unis.u_UseTexture
+                unis.u_UseTexture,
+                vaoExt
             );
         }
 
@@ -153,93 +170,88 @@ function startRenderLoop(ctx) {
     requestAnimationFrame(render);
 }
 
-function texturesReady() {
-    return TextureManager.get("stone") &&
-        TextureManager.get("grass") &&
-        TextureManager.get("cobble") &&
-        TextureManager.get("signWelcome") &&
-        TextureManager.get("signWrongTurn1") &&
-        TextureManager.get("signWrongTurn2") &&
-        TextureManager.get("signBye");
-}
-
-function createWorldObjects(entities, cubeMesh) {
+function createWorldObjects(entities, cubeMesh, specialBlocks) {
     for (let x = 0; x < g_worldMatrix.length; x++) {
         for (let z = 0; z < g_worldMatrix[x].length; z++) {
 
             const height = g_worldMatrix[x][z];
 
             for (let y = 0; y <= height; y++) {
-                let e;
+                let texKey = getKey(x, z, y);
+                let tex = null;
+
                 if (y === 0) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "grass", true);
+                    tex = "grass";
                 }
-                else if (x === 16 && z === 31 && y === 2) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "signWelcome", true);
-                }
-                else if (x === 30 && z === 31 && y === 2) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "signWrongTurn1", true);
-                }
-                else if (x === 12 && z === 0 && y === 2) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "signWrongTurn2", true);
-                }
-                else if (x === 0 && z === 7 && y === 2) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "signBye", true);
-                }
-                else if (Math.random() < 0.5) {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "stone", true);
+                else if (specialBlocks.has(texKey)) {
+                    tex = specialBlocks.get(texKey);
                 }
                 else {
-                    e = new Entity(cubeMesh, [0.5, 0.5, 0.5, 1], "cobble", true);
+                    tex = (Math.random() < 0.5) ? "stone" : "cobble";
                 }
+
+                const e = new Entity (
+                  cubeMesh,
+                    [0.5, 0.5, 0.5, 1],
+                    tex,
+                    !!tex
+                );
                 e.setIdentity();
-                e.setPosition(x - 16, y, z - 16);
+                e.setPosition(x, y, z);
                 entities.push(e);
             }
         }
     }
 
-    let sky = new Entity(cubeMesh, [0.2, 0.2, 0.8, 1], null, false);
+    let sky = new Entity(cubeMesh, [0.4, 0.4, 1, 1], null, false);
     sky.setIdentity();
-    sky.setScale(40, 40, 40);
-    sky.setPosition(-0.0125, 0, -0.0125);
+    sky.setPosition(0, 0, 0);
+    sky.setScale(100, 100, 100);
+
     entities.push(sky);
 }
 
+function getKey(x, z, y) {
+    return `${x},${z},${y}`;
+}
+
+function isSolid(x, z) {
+    // Get block that camera is above
+    const centerX = Math.floor(x + 0.5);
+    const centerZ = Math.floor(z + 0.5);
+
+    // Check if camera is out of bounds (since otherwise it would crash checking out of bounds in world matrix)
+    if (
+        centerX < 0 || centerX >= g_worldMatrix.length ||
+        centerZ < 0 || centerZ >= g_worldMatrix[0].length
+    ) return false;
+
+    // Return bool of world matrix height
+    return g_worldMatrix[centerX][centerZ] !== 0;
+}
+
 function updateFPS() {
+    // Inc frame count every frame
     g_frameCount++;
+    // Log now
     const now = performance.now();
+    // Check fps every second
     if (now >= g_lastTime + 1000) {
+        // Calc fps
         const fps = Math.round((g_frameCount * 1000) / (now - g_lastTime));
         document.getElementById('fps').textContent = fps;
+        // Reset counters
         g_frameCount = 0;
         g_lastTime = now;
     }
 }
 
-function setupAttributes(gl, buffer, attribs) {
-    const FSIZE = 4;
-    const stride = 8 * FSIZE;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-    gl.enableVertexAttribArray(attribs.a_Position);
-    gl.vertexAttribPointer(attribs.a_Position, 3, gl.FLOAT, false, stride, 0);
-
-    gl.enableVertexAttribArray(attribs.a_Normal);
-    gl.vertexAttribPointer(attribs.a_Normal, 3, gl.FLOAT, false, stride, 3 * FSIZE);
-
-    gl.enableVertexAttribArray(attribs.a_TexCoord);
-    gl.vertexAttribPointer(attribs.a_TexCoord, 2, gl.FLOAT, false, stride, 6 * FSIZE);
-}
-
 function getAttributes(gl) {
     return {
-        // vShader attribs
+        // vShader attrib
         a_Position : gl.getAttribLocation(gl.program, "a_Position"),
-        a_Normal : gl.getAttribLocation(gl.program, "a_Normal"),
 
-        // fShader attribs
+        // fShader attrib
         a_TexCoord : gl.getAttribLocation(gl.program, "a_TexCoord")
     };
 }
