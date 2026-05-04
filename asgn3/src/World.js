@@ -1,11 +1,14 @@
 let VSHADER_SOURCE = `
+// Attribs
 attribute vec3 a_Position;
 attribute vec2 a_TexCoord;
 
+// Matrices
 uniform mat4 u_ModelMatrix;
 uniform mat4 u_ViewMatrix;
 uniform mat4 u_ProjectionMatrix;
 
+// Varyings
 varying vec2 v_TexCoord;
 
 void main() {
@@ -23,11 +26,13 @@ void main() {
 let FSHADER_SOURCE = `
 precision mediump float;
 
+// Unis
 uniform vec4 u_Color; // Base color
 uniform sampler2D u_Sampler; // Texture
 uniform float u_T; // Blend
 uniform int u_UseTexture; // Use texture bool
 
+// Varyings
 varying vec2 v_TexCoord;
 
 void main () {
@@ -41,9 +46,11 @@ void main () {
 }
 `;
 
+// FPS counter vars
 let g_frameCount = 0;
 let g_lastTime = performance.now();
 
+// Worl map
 const g_worldMatrix = [
     [4,4,4,4,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
     [4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,0,0,0,0,0,4,0,0,0,0,0,4],
@@ -101,11 +108,14 @@ function main() {
     // Init camera object
     const camera = new Camera(gl, canvas, unis.u_ViewMatrix, unis.u_ProjectionMatrix);
 
+    // Entity list
     const entities = [];
 
     const textureNames = [
         "stone",
         "grass",
+        "path",
+        "dirt",
         "cobble",
         "signWelcome",
         "signWrongTurn1",
@@ -113,6 +123,7 @@ function main() {
         "signBye"
     ];
 
+    // Load all textures
     for (const name of textureNames) {
         TextureManager.load(gl, name, `../resources/${name}.png`);
     }
@@ -179,9 +190,18 @@ function createWorldObjects(entities, cubeMesh, specialBlocks) {
             for (let y = 0; y <= height; y++) {
                 let texKey = getKey(x, z, y);
                 let tex = null;
+                let rand = Math.random();
 
                 if (y === 0) {
-                    tex = "grass";
+                    if (rand < 0.3) {
+                        tex = "dirt";
+                    }
+                    else if (rand < 0.85) {
+                        tex = "path";
+                    }
+                    else {
+                        tex = "grass";
+                    }
                 }
                 else if (specialBlocks.has(texKey)) {
                     tex = specialBlocks.get(texKey);

@@ -72,7 +72,7 @@ class Camera {
     }
 
     update() {
-        const speed = this.moveSpeed;
+        let speed = this.moveSpeed;
 
         let dx = 0;
         let dz = 0;
@@ -97,7 +97,7 @@ class Camera {
             dz += this.right.elements[2] * speed;
         }
 
-        // Apply collision-aware movement
+        // Try move with dx dz
         this.move(dx, dz);
 
         // Modify yaw with q/e
@@ -130,20 +130,24 @@ class Camera {
         const z = this.eye.elements[2];
         const r = this.radius;
 
-        // X-axis collision
+        // Check if pos + rad + intended movement dir is solid
         if (
-            // Check both sides +- r
-            !isSolid(x + dx + r, z) &&
-            !isSolid(x + dx - r, z)
+            !isSolid(x + dx + r, z + r) &&
+            !isSolid(x + dx + r, z - r) &&
+            !isSolid(x + dx - r, z + r) &&
+            !isSolid(x + dx - r, z - r)
         ) {
             this.eye.elements[0] += dx;
         }
 
-        // Z-axis collision
+        // Save x again in case x has changed since last update
+        const newX = this.eye.elements[0];
+
         if (
-            // Check both sides +- r
-            !isSolid(this.eye.elements[0], z + dz + r) &&
-            !isSolid(this.eye.elements[0], z + dz - r)
+            !isSolid(newX + r, z + dz + r) &&
+            !isSolid(newX + r, z + dz - r) &&
+            !isSolid(newX - r, z + dz + r) &&
+            !isSolid(newX - r, z + dz - r)
         ) {
             this.eye.elements[2] += dz;
         }

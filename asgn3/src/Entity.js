@@ -9,6 +9,7 @@ class Entity {
         this.modelMatrix = new Matrix4();
     }
 
+    // Transpose functions
     setIdentity() {
         this.modelMatrix.setIdentity();
     }
